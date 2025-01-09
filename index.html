@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrimonio Paolo e Giorgia</title>
+    <style>
+        /* Reset base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Corpo della pagina */
+        body {
+            margin: 0;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+            position: relative;
+            opacity: 0; /* Inizialmente nascosto per l'effetto di fade-in */
+            animation: fadeIn 4s forwards; /* Animazione di apertura, ora più lenta */
+        }
+
+        /* Effetto di fade-in più lento */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Contenitore principale scrollabile */
+        .scroll-container {
+            width: 100%;
+            max-width: 800px;
+            height: 90vh;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            position: relative;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border: 1px solid #ccc; /* Aggiunto un bordo sottile per eleganza */
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Immagine di sfondo */
+        .background-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Gradiente al bordo inferiore che rimane fisso in basso */
+        .scroll-gradient {
+            content: '';
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Freccia per indicare lo scroll, posizione fissa */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 40px;
+            color: #b58f71; /* Colore elegante dorato */
+            text-align: center;
+            animation: bounceArrow 1.5s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Effetto di rimbalzo della freccia */
+        @keyframes bounceArrow {
+            0%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            50% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+
+        /* Linea decorativa sopra il contenuto */
+        .decorative-line {
+            position: absolute;
+            top: -20px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, #b58f71, #f2f2f2);
+            z-index: 3;
+        }
+
+        /* Elementi grafici delicati per il tema elegante */
+        .elegant-graphic {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            background-image: url('https://path-to-your-elegant-graphic.png'); /* Un'icona o decorazione elegante */
+            background-size: cover;
+            opacity: 0.8;
+            z-index: 3;
+        }
+
+        /* Media query per dispositivi mobili */
+        @media (max-width: 600px) {
+            .scroll-indicator {
+                font-size: 30px; /* Ridurre la dimensione della freccia su schermi piccoli */
+            }
+
+            body {
+                padding: 10px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Elementi grafici decorativi -->
+    <div class="decorative-line"></div>
+    <div class="elegant-graphic"></div>
+
+    <!-- Gradiente fisso in basso -->
+    <div class="scroll-gradient"></div>
+
+    <div class="scroll-container" id="scroll-container">
+        <img class="background-image" src="sfondo.jpg" usemap="#image-map" alt="Sfondo">
+    </div>
+
+    <!-- Indicatore di scorrimento -->
+    <div class="scroll-indicator" id="scroll-indicator">↓</div>
+
+    <map name="image-map">
+        <area shape="rect" coords="250,1413,554,1515" href="https://docs.google.com/forms/d/e/1FAIpQLSdxoRrQzizgeBPutK-N7_0FzqsJTRkY1Vb6DmRbMJXcde_aHQ/viewform?vc=0&c=0&w=1&flr=0" alt="Link" target="_blank">
+    </map>
+
+    <script>
+        const scrollContainer = document.getElementById('scroll-container');
+        const scrollIndicator = document.getElementById('scroll-indicator');
+        const scrollGradient = document.querySelector('.scroll-gradient');
+
+        // Funzione per nascondere l'indicatore e il gradiente quando si arriva alla fine dello scroll
+        function checkScroll() {
+            const scrollPosition = scrollContainer.scrollTop;
+            const scrollHeight = scrollContainer.scrollHeight;
+            const containerHeight = scrollContainer.clientHeight;
+
+            if (scrollPosition + containerHeight >= scrollHeight) {
+                scrollIndicator.style.display = 'none';
+                scrollGradient.style.display = 'none';
+            } else {
+                scrollIndicator.style.display = 'block';
+                scrollGradient.style.display = 'block';
+            }
+        }
+
+        // Aggiungere un evento di scroll
+        scrollContainer.addEventListener('scroll', checkScroll);
+
+        // Verifica iniziale se la pagina è già scorsa
+        checkScroll();
+    </script>
+</body>
+</html>
+
