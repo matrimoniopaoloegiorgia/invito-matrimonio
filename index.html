@@ -21,7 +21,7 @@
             padding: 20px;
             position: relative;
             opacity: 0;
-            animation: fadeIn 4s forwards; /* Rallenta il fade-in */
+            animation: fadeIn 4s forwards;
             overflow: hidden;
         }
 
@@ -41,7 +41,6 @@
             max-width: 800px;
             height: 90vh;
             overflow-y: scroll;
-            overflow-x: hidden;
             position: relative;
             background-color: white;
             border-radius: 10px;
@@ -50,7 +49,7 @@
         }
 
         .scroll-container::-webkit-scrollbar {
-            display: none; /* Nascondi barra di scorrimento su WebKit */
+            display: none;
         }
 
         /* Immagine di sfondo */
@@ -58,9 +57,20 @@
             width: 100%;
             height: auto;
             display: block;
-            user-select: none; /* Impedisce la selezione dell'immagine */
+            pointer-events: none; /* Disabilita clic */
+            user-select: none; /* Impedisce la selezione */
             -webkit-user-drag: none; /* Impedisce il trascinamento su WebKit */
-            pointer-events: auto; /* Permette l'interazione solo con le aree mappate */
+            position: relative;
+        }
+
+        /* Area cliccabile */
+        .clickable-area {
+            position: absolute;
+            top: 1413px;
+            left: 250px;
+            width: 304px; /* 554 - 250 */
+            height: 102px; /* 1515 - 1413 */
+            pointer-events: auto;
         }
 
         /* Stelle animate */
@@ -71,7 +81,7 @@
             background-image: url('png-clipart-small-gold-star-creative-christmas-christmas-thumbnail.png');
             background-size: cover;
             opacity: 0.8;
-            animation: twinkle 4s infinite ease-in-out, moveStar 20s linear infinite;
+            animation: twinkle 4s infinite ease-in-out, moveStar 30s linear infinite;
         }
 
         @keyframes twinkle {
@@ -90,7 +100,7 @@
                 transform: translate(0, 0);
             }
             100% {
-                transform: translate(50px, 50px);
+                transform: translate(100px, 100px);
             }
         }
 
@@ -119,17 +129,16 @@
 
         @media (max-width: 600px) {
             .scroll-container {
-                height: 80vh; /* Riduci l'altezza per dispositivi mobili */
+                height: 80vh;
                 max-width: 100%;
             }
-            body {
-                padding: 10px;
-            }
+
             .scroll-indicator {
                 font-size: 30px;
             }
+
             .star {
-                width: 10px; /* Rendi le stelle più piccole su mobile */
+                width: 10px;
                 height: 10px;
             }
         }
@@ -141,13 +150,9 @@
 
     <!-- Contenitore scrollabile -->
     <div class="scroll-container">
-        <!-- Usa l'immagine come sfondo ma rendila parte dell'interfaccia cliccabile -->
-        <img class="background-image" src="sfondo.jpg" usemap="#image-map" alt="Sfondo">
-        <!-- Mappa immagine -->
-        <map name="image-map">
-            <area shape="rect" coords="250,1413,554,1515" href="https://docs.google.com/forms/d/e/1FAIpQLSdxoRrQzizgeBPutK-N7_0FzqsJTRkY1Vb6DmRbMJXcde_aHQ/viewform?vc=0&c=0&w=1&flr=0" 
-                alt="Link" target="_blank">
-        </map>
+        <img class="background-image" src="sfondo.jpg" alt="Sfondo non selezionabile">
+        <!-- Area cliccabile -->
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdxoRrQzizgeBPutK-N7_0FzqsJTRkY1Vb6DmRbMJXcde_aHQ/viewform?vc=0&c=0&w=1&flr=0" target="_blank" class="clickable-area"></a>
     </div>
 
     <!-- Indicatore di scorrimento -->
@@ -165,8 +170,7 @@
             star.classList.add('star');
             star.style.left = Math.random() * maxWidth + 'px';
             star.style.top = Math.random() * maxHeight + 'px';
-            star.style.animationDelay = Math.random() * 4 + 's'; // Ritardo casuale
-            star.style.animationDuration = `${15 + Math.random() * 10}s`; // Durata casuale del movimento
+            star.style.animationDelay = Math.random() * 4 + 's';
             starsContainer.appendChild(star);
         }
 
