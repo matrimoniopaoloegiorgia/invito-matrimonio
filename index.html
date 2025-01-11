@@ -58,6 +58,9 @@
             width: 100%;
             height: auto;
             display: block;
+            user-select: none; /* Impedisce la selezione dell'immagine */
+            -webkit-user-drag: none; /* Impedisce il trascinamento su WebKit */
+            pointer-events: auto; /* Permette l'interazione solo con le aree mappate */
         }
 
         /* Stelle animate */
@@ -68,7 +71,7 @@
             background-image: url('png-clipart-small-gold-star-creative-christmas-christmas-thumbnail.png');
             background-size: cover;
             opacity: 0.8;
-            animation: twinkle 4s infinite ease-in-out;
+            animation: twinkle 4s infinite ease-in-out, moveStar 20s linear infinite;
         }
 
         @keyframes twinkle {
@@ -79,6 +82,15 @@
             50% {
                 transform: scale(1.2);
                 opacity: 1;
+            }
+        }
+
+        @keyframes moveStar {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(50px, 50px);
             }
         }
 
@@ -129,18 +141,20 @@
 
     <!-- Contenitore scrollabile -->
     <div class="scroll-container">
+        <!-- Usa l'immagine come sfondo ma rendila parte dell'interfaccia cliccabile -->
         <img class="background-image" src="sfondo.jpg" usemap="#image-map" alt="Sfondo">
+        <!-- Mappa immagine -->
+        <map name="image-map">
+            <area shape="rect" coords="250,1413,554,1515" href="https://docs.google.com/forms/d/e/1FAIpQLSdxoRrQzizgeBPutK-N7_0FzqsJTRkY1Vb6DmRbMJXcde_aHQ/viewform?vc=0&c=0&w=1&flr=0" 
+                alt="Link" target="_blank">
+        </map>
     </div>
 
     <!-- Indicatore di scorrimento -->
     <div class="scroll-indicator" id="scroll-indicator">↓</div>
 
-    <map name="image-map">
-        <area shape="rect" coords="250,1413,554,1515" href="https://docs.google.com/forms/d/e/1FAIpQLSdxoRrQzizgeBPutK-N7_0FzqsJTRkY1Vb6DmRbMJXcde_aHQ/viewform?vc=0&c=0&w=1&flr=0" alt="Link" target="_blank" style="pointer-events: auto;">
-    </map>
-
     <script>
-        // Creazione delle stelle animate
+        // Creazione delle stelle animate con movimento
         const starsContainer = document.getElementById('stars-container');
         const starCount = 50; // Numero di stelle
         const maxWidth = window.innerWidth;
@@ -152,6 +166,7 @@
             star.style.left = Math.random() * maxWidth + 'px';
             star.style.top = Math.random() * maxHeight + 'px';
             star.style.animationDelay = Math.random() * 4 + 's'; // Ritardo casuale
+            star.style.animationDuration = `${15 + Math.random() * 10}s`; // Durata casuale del movimento
             starsContainer.appendChild(star);
         }
 
