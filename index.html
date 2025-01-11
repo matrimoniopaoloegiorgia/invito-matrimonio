@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Matrimonio Paolo e Giorgia</title>
     <style>
         /* Reset base */
@@ -14,14 +14,14 @@
 
         /* Corpo della pagina */
         body {
-            background-color: #f2f2f2;
+            background-color: #000; /* Nero per evidenziare le stelle */
             display: flex;
             justify-content: center;
             align-items: flex-start;
             padding: 20px;
             position: relative;
             opacity: 0;
-            animation: fadeIn 4s forwards;
+            animation: fadeIn 2s forwards;
             overflow: hidden;
         }
 
@@ -58,43 +58,40 @@
             height: auto;
             display: block;
             user-select: none;
-            -webkit-user-drag: none; /* Impedisce il trascinamento su WebKit */
-            pointer-events: none; /* Rende l'immagine completamente non interattiva */
-            -webkit-touch-callout: none; /* Impedisce l'evidenziazione su iOS */
+            pointer-events: none;
         }
 
         /* Area cliccabile */
         .clickable-area {
             position: absolute;
-            top: 1413px; /* Regola in base all'immagine */
+            top: 1413px;
             left: 250px;
-            width: 304px; /* 554 - 250 */
-            height: 102px; /* 1515 - 1413 */
+            width: 304px;
+            height: 102px;
             z-index: 10;
-            background: rgba(0, 0, 0, 0); /* Area invisibile ma cliccabile */
-            cursor: pointer;
+            background: rgba(0, 0, 0, 0); /* Invisibile */
         }
 
         /* Stelle animate */
-        .star {
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            background-image: url('png-clipart-small-gold-star-creative-christmas-christmas-thumbnail.png');
-            background-size: cover;
-            opacity: 0.8;
-            animation: twinkle 4s infinite ease-in-out, moveStar 30s linear infinite;
+        #stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
         }
 
-        @keyframes twinkle {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 0.8;
-            }
-            50% {
-                transform: scale(1.2);
-                opacity: 1;
-            }
+        .star {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ffd700; /* Oro */
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: moveStar 10s linear infinite;
         }
 
         @keyframes moveStar {
@@ -102,7 +99,7 @@
                 transform: translate(0, 0);
             }
             100% {
-                transform: translate(50px, 50px);
+                transform: translate(200px, 200px); /* Movimento diagonale */
             }
         }
 
@@ -140,8 +137,8 @@
             }
 
             .star {
-                width: 10px;
-                height: 10px;
+                width: 7px;
+                height: 7px;
             }
         }
     </style>
@@ -162,7 +159,7 @@
     <div class="scroll-indicator" id="scroll-indicator">↓</div>
 
     <script>
-        // Creazione delle stelle animate con movimento
+        // Creazione delle stelle animate
         const starsContainer = document.getElementById('stars-container');
         const starCount = 50; // Numero di stelle
         const maxWidth = window.innerWidth;
@@ -173,7 +170,8 @@
             star.classList.add('star');
             star.style.left = Math.random() * maxWidth + 'px';
             star.style.top = Math.random() * maxHeight + 'px';
-            star.style.animationDelay = Math.random() * 4 + 's';
+            star.style.animationDuration = 10 + Math.random() * 10 + 's'; // Durata variabile
+            star.style.animationDelay = Math.random() * 10 + 's'; // Ritardo casuale
             starsContainer.appendChild(star);
         }
 
