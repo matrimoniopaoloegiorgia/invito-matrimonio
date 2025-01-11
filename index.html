@@ -14,7 +14,7 @@
 
         /* Corpo della pagina */
         body {
-            background-color: #000; /* Nero per evidenziare le stelle */
+            background-color: #f2f2f2; /* Colore neutro */
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -59,12 +59,14 @@
             display: block;
             user-select: none;
             pointer-events: none;
+            object-fit: cover;
+            border-radius: 10px;
         }
 
         /* Area cliccabile */
         .clickable-area {
             position: absolute;
-            top: 1413px;
+            top: 1413px; /* Regola in base all'immagine */
             left: 250px;
             width: 304px;
             height: 102px;
@@ -86,20 +88,30 @@
 
         .star {
             position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: #ffd700; /* Oro */
-            border-radius: 50%;
+            background-image: url('png-clipart-small-gold-star-creative-christmas-christmas-thumbnail.png'); /* File PNG che mi hai fornito */
+            background-size: cover;
             opacity: 0.8;
-            animation: moveStar 10s linear infinite;
+            animation: moveStar 30s linear infinite, twinkle 3s ease-in-out infinite;
         }
 
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        /* Movimento delle stelle */
         @keyframes moveStar {
             0% {
-                transform: translate(0, 0);
+                transform: translateX(0) translateY(0);
             }
             100% {
-                transform: translate(200px, 200px); /* Movimento diagonale */
+                transform: translateX(100vw) translateY(100vh); /* Movimento obliquo */
             }
         }
 
@@ -126,6 +138,7 @@
             }
         }
 
+        /* Correzioni per dispositivi mobili */
         @media (max-width: 600px) {
             .scroll-container {
                 height: 80vh;
@@ -137,8 +150,9 @@
             }
 
             .star {
-                width: 7px;
-                height: 7px;
+                width: 10px;
+                height: 10px;
+                animation-duration: 40s; /* Più lenta per mobile */
             }
         }
     </style>
@@ -159,19 +173,29 @@
     <div class="scroll-indicator" id="scroll-indicator">↓</div>
 
     <script>
-        // Creazione delle stelle animate
+        // Creazione delle stelle animate con dimensioni casuali
         const starsContainer = document.getElementById('stars-container');
-        const starCount = 50; // Numero di stelle
+        const starCount = 100; // Numero di stelle
         const maxWidth = window.innerWidth;
         const maxHeight = window.innerHeight;
 
         for (let i = 0; i < starCount; i++) {
             const star = document.createElement('div');
             star.classList.add('star');
+
+            // Impostazione dimensione casuale per ciascuna stella
+            const size = Math.random() * 10 + 5; // Dimensioni tra 5px e 15px
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+
+            // Posizionamento casuale delle stelle
             star.style.left = Math.random() * maxWidth + 'px';
             star.style.top = Math.random() * maxHeight + 'px';
-            star.style.animationDuration = 10 + Math.random() * 10 + 's'; // Durata variabile
-            star.style.animationDelay = Math.random() * 10 + 's'; // Ritardo casuale
+
+            // Durata e ritardo casuale per l'animazione
+            star.style.animationDuration = (Math.random() * 15 + 15) + 's'; // Durata casuale
+            star.style.animationDelay = Math.random() * 5 + 's'; // Ritardo casuale
+
             starsContainer.appendChild(star);
         }
 
