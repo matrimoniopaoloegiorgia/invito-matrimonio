@@ -144,7 +144,7 @@
 
             /* Correzioni dell'area cliccabile su schermi piccoli */
             .clickable-area {
-                top: 65%; /* Percentuale per adattare l'area cliccabile alla dimensione */
+                top: calc(60% + 30vh); /* Adatta dinamicamente in base all'altezza dello schermo */
                 left: 10%;
                 width: 80%;
                 height: 8%;
@@ -176,7 +176,7 @@
     <script>
         // Creazione delle stelle animate con movimento
         const starsContainer = document.getElementById('stars-container');
-        const starCount = 50; // Numero di stelle
+        const starCount = 75; // Numero di stelle aumentato
         const maxWidth = window.innerWidth;
         const maxHeight = window.innerHeight;
 
@@ -185,7 +185,7 @@
             star.classList.add('star');
             star.style.left = Math.random() * maxWidth + 'px';
             star.style.top = Math.random() * maxHeight + 'px';
-            star.style.width = (Math.random() * 5 + 10) + 'px'; // Varie dimensioni per le stelle
+            star.style.width = (Math.random() * 5 + 5) + 'px'; // Maggiore variabilità per le dimensioni
             star.style.height = star.style.width;
             star.style.animationDelay = Math.random() * 4 + 's';
             starsContainer.appendChild(star);
