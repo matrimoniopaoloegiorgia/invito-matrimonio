@@ -23,6 +23,7 @@
             opacity: 0;
             animation: fadeIn 4s forwards;
             overflow: hidden;
+            touch-action: none; /* Disabilita lo zoom via pinch gesture */
         }
 
         /* Effetto fade-in */
@@ -47,6 +48,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             border: 1px solid #ccc;
             overflow-x: hidden; /* Impedisce lo scorrimento laterale */
+            touch-action: none; /* Disabilita lo zoom via pinch gesture */
         }
 
         .scroll-container::-webkit-scrollbar {
@@ -62,6 +64,8 @@
             user-select: none;
             -webkit-user-drag: none;
             position: relative;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
         }
 
         /* Area cliccabile */
@@ -154,9 +158,16 @@
             .background-image {
                 width: 100%;
                 height: auto;
-                object-fit: cover; /* Mantiene la proporzione senza tagli */
+                object-fit: cover;
+                transform: scale(1); /* Inizialmente l'immagine è al suo formato originale */
             }
         }
+
+        /* Ingrandire l'immagine di sfondo su hover o evento */
+        .background-image.zoomed {
+            transform: scale(1.2); /* Esempio di ingrandimento */
+        }
+
     </style>
 </head>
 <body>
@@ -165,7 +176,7 @@
 
     <!-- Contenitore scrollabile -->
     <div class="scroll-container">
-        <img class="background-image" src="sfondo.jpg" alt="Sfondo non selezionabile">
+        <img class="background-image" src="sfondo.jpg" alt="Sfondo non selezionabile" id="background-img">
         <!-- Area cliccabile -->
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSdxoRrQzizgeBPutK-N7_0FzqsJTRkY1Vb6DmRbMJXcde_aHQ/viewform?vc=0&c=0&w=1&flr=0" target="_blank" class="clickable-area"></a>
     </div>
@@ -204,6 +215,16 @@
         scrollContainer.addEventListener('touchmove', () => {
             const isAtBottom = scrollContainer.scrollTop + scrollContainer.clientHeight >= scrollContainer.scrollHeight - 1;
             scrollIndicator.style.display = isAtBottom ? 'none' : 'block';
+        });
+
+        // Gestione ingrandimento dell'immagine di sfondo
+        const backgroundImg = document.getElementById('background-img');
+        backgroundImg.addEventListener('mouseenter', () => {
+            backgroundImg.classList.add('zoomed');
+        });
+
+        backgroundImg.addEventListener('mouseleave', () => {
+            backgroundImg.classList.remove('zoomed');
         });
     </script>
 </body>
