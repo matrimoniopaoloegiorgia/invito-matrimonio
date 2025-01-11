@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matrimonio Paolo e Giorgia</title>
     <style>
         /* Reset base */
@@ -14,14 +14,14 @@
 
         /* Corpo della pagina */
         body {
-            background-color: #f2f2f2; /* Colore neutro */
+            background-color: #f2f2f2;
             display: flex;
             justify-content: center;
             align-items: flex-start;
             padding: 20px;
             position: relative;
             opacity: 0;
-            animation: fadeIn 2s forwards;
+            animation: fadeIn 4s forwards;
             overflow: hidden;
         }
 
@@ -55,64 +55,52 @@
         /* Immagine di sfondo */
         .background-image {
             width: 100%;
-            height: 100%;
-            object-fit: cover; /* Si adatta senza deformazioni */
+            height: auto;
             display: block;
-            user-select: none;
-            pointer-events: none;
-            border-radius: 10px;
-            box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5); /* Alone d'ombra attorno all'immagine */
+            pointer-events: none; /* Disabilita clic */
+            user-select: none; /* Impedisce la selezione */
+            -webkit-user-drag: none; /* Impedisce il trascinamento su WebKit */
+            position: relative;
         }
 
         /* Area cliccabile */
         .clickable-area {
             position: absolute;
-            top: 1413px; /* Regola in base all'immagine */
+            top: 1413px;
             left: 250px;
-            width: 304px;
-            height: 102px;
-            z-index: 10;
-            background: rgba(0, 0, 0, 0); /* Invisibile */
+            width: 304px; /* 554 - 250 */
+            height: 102px; /* 1515 - 1413 */
+            pointer-events: auto;
         }
 
         /* Stelle animate */
-        #stars-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
-        }
-
         .star {
             position: absolute;
+            width: 10px;
+            height: 10px;
             background-image: url('png-clipart-small-gold-star-creative-christmas-christmas-thumbnail.png');
             background-size: cover;
             opacity: 0.8;
-            animation: moveStar 30s linear infinite, twinkle 3s ease-in-out infinite;
+            animation: twinkle 4s infinite ease-in-out, moveStar 30s linear infinite;
         }
 
         @keyframes twinkle {
             0%, 100% {
-                opacity: 0.8;
                 transform: scale(1);
+                opacity: 0.8;
             }
             50% {
+                transform: scale(1.5);
                 opacity: 1;
-                transform: scale(1.2);
             }
         }
 
-        /* Movimento delle stelle */
         @keyframes moveStar {
             0% {
-                transform: translateX(0) translateY(0);
+                transform: translate(0, 0);
             }
             100% {
-                transform: translateX(100vw) translateY(100vh); /* Movimento obliquo */
+                transform: translate(100px, 100px);
             }
         }
 
@@ -139,12 +127,10 @@
             }
         }
 
-        /* Correzioni per dispositivi mobili */
         @media (max-width: 600px) {
             .scroll-container {
                 height: 80vh;
                 max-width: 100%;
-                overflow-y: scroll;
             }
 
             .scroll-indicator {
@@ -152,15 +138,13 @@
             }
 
             .star {
-                width: 8px; /* Più piccole per mobile */
+                width: 8px;
                 height: 8px;
-                animation-duration: 40s; /* Più lenta per mobile */
             }
 
-            /* Correzioni per il posizionamento dell'area cliccabile su mobile */
-            .clickable-area {
-                top: 1300px; /* Posizione corretta */
-                left: 200px; /* Riposizionato */
+            /* Impedisce la selezione dell'immagine di sfondo su smartphone */
+            .background-image {
+                pointer-events: none; 
             }
         }
     </style>
@@ -173,37 +157,27 @@
     <div class="scroll-container">
         <img class="background-image" src="sfondo.jpg" alt="Sfondo non selezionabile">
         <!-- Area cliccabile -->
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdxoRrQzizgeBPutK-N7_0FzqsJTRkY1Vb6DmRbMJXcde_aHQ/viewform?vc=0&c=0&w=1&flr=0" 
-           target="_blank" class="clickable-area"></a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdxoRrQzizgeBPutK-N7_0FzqsJTRkY1Vb6DmRbMJXcde_aHQ/viewform?vc=0&c=0&w=1&flr=0" target="_blank" class="clickable-area"></a>
     </div>
 
     <!-- Indicatore di scorrimento -->
     <div class="scroll-indicator" id="scroll-indicator">↓</div>
 
     <script>
-        // Creazione delle stelle animate con dimensioni casuali
+        // Creazione delle stelle animate con movimento
         const starsContainer = document.getElementById('stars-container');
-        const starCount = 100; // Numero di stelle
+        const starCount = 100; // Numero aumentato di stelle
         const maxWidth = window.innerWidth;
         const maxHeight = window.innerHeight;
 
         for (let i = 0; i < starCount; i++) {
             const star = document.createElement('div');
             star.classList.add('star');
-
-            // Impostazione dimensione casuale per ciascuna stella
-            const size = Math.random() * 10 + 5; // Dimensioni tra 5px e 15px
-            star.style.width = size + 'px';
-            star.style.height = size + 'px';
-
-            // Posizionamento casuale delle stelle
             star.style.left = Math.random() * maxWidth + 'px';
             star.style.top = Math.random() * maxHeight + 'px';
-
-            // Durata e ritardo casuale per l'animazione
-            star.style.animationDuration = (Math.random() * 15 + 15) + 's'; // Durata casuale
-            star.style.animationDelay = Math.random() * 5 + 's'; // Ritardo casuale
-
+            star.style.width = Math.random() * 6 + 8 + 'px'; // Varietà nelle dimensioni delle stelle
+            star.style.height = star.style.width; // Altezza uguale alla larghezza per rendere la stella rotonda
+            star.style.animationDelay = Math.random() * 4 + 's';
             starsContainer.appendChild(star);
         }
 
@@ -212,6 +186,12 @@
         const scrollIndicator = document.getElementById('scroll-indicator');
 
         scrollContainer.addEventListener('scroll', () => {
+            const isAtBottom = scrollContainer.scrollTop + scrollContainer.clientHeight >= scrollContainer.scrollHeight - 1;
+            scrollIndicator.style.display = isAtBottom ? 'none' : 'block';
+        });
+
+        // Aggiungi un gestore per l'evento touch su dispositivi mobili
+        scrollContainer.addEventListener('touchmove', () => {
             const isAtBottom = scrollContainer.scrollTop + scrollContainer.clientHeight >= scrollContainer.scrollHeight - 1;
             scrollIndicator.style.display = isAtBottom ? 'none' : 'block';
         });
