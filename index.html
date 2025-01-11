@@ -46,6 +46,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             border: 1px solid #ccc;
+            overflow-x: hidden; /* Impedisce lo scorrimento orizzontale */
         }
 
         .scroll-container::-webkit-scrollbar {
@@ -61,6 +62,7 @@
             user-select: none; /* Impedisce la selezione */
             -webkit-user-drag: none; /* Impedisce il trascinamento su WebKit */
             position: relative;
+            object-fit: cover; /* Impedisce che l'immagine esca dal contenitore */
         }
 
         /* Area cliccabile */
@@ -127,6 +129,7 @@
             }
         }
 
+        /* Media query per smartphone */
         @media (max-width: 600px) {
             .scroll-container {
                 height: 80vh;
@@ -138,13 +141,22 @@
             }
 
             .star {
-                width: 8px;
-                height: 8px;
+                width: 6px;
+                height: 6px;
             }
 
             /* Impedisce la selezione dell'immagine di sfondo su smartphone */
             .background-image {
                 pointer-events: none; 
+                object-fit: cover; /* Adatta l'immagine al contenitore */
+            }
+
+            /* Rende l'area cliccabile proporzionale su schermi piccoli */
+            .clickable-area {
+                top: calc(1413px * 0.8); /* Ridimensionamento proporzionale */
+                left: calc(250px * 0.8); /* Ridimensionamento proporzionale */
+                width: calc(304px * 0.8); /* Ridimensionamento proporzionale */
+                height: calc(102px * 0.8); /* Ridimensionamento proporzionale */
             }
         }
     </style>
