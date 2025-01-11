@@ -57,10 +57,9 @@
             width: 100%;
             height: auto;
             display: block;
-            pointer-events: none; /* Disabilita clic */
             user-select: none; /* Impedisce la selezione */
             -webkit-user-drag: none; /* Impedisce il trascinamento su WebKit */
-            position: relative;
+            pointer-events: none; /* Rende l'immagine completamente non interattiva */
         }
 
         /* Area cliccabile */
@@ -70,7 +69,8 @@
             left: 250px;
             width: 304px; /* 554 - 250 */
             height: 102px; /* 1515 - 1413 */
-            pointer-events: auto;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0); /* Area invisibile */
         }
 
         /* Stelle animate */
