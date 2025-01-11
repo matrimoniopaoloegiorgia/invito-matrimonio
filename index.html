@@ -55,12 +55,13 @@
         /* Immagine di sfondo */
         .background-image {
             width: 100%;
-            height: auto;
+            height: 100%;
             display: block;
             user-select: none;
             pointer-events: none;
             object-fit: cover;
             border-radius: 10px;
+            box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5); /* Alone d'ombra attorno all'immagine */
         }
 
         /* Area cliccabile */
@@ -143,6 +144,7 @@
             .scroll-container {
                 height: 80vh;
                 max-width: 100%;
+                overflow-y: scroll; /* Abilita lo scroll verticale */
             }
 
             .scroll-indicator {
@@ -150,9 +152,15 @@
             }
 
             .star {
-                width: 10px;
-                height: 10px;
+                width: 8px; /* Più piccole per mobile */
+                height: 8px;
                 animation-duration: 40s; /* Più lenta per mobile */
+            }
+
+            /* Correzioni per il posizionamento dell'area cliccabile su mobile */
+            .clickable-area {
+                top: 1300px; /* Regola in base alla posizione dell'immagine */
+                left: 200px; /* Riposizionato */
             }
         }
     </style>
