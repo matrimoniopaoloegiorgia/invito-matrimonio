@@ -46,7 +46,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             border: 1px solid #ccc;
-            overflow-x: hidden; /* Impedisce lo scorrimento orizzontale */
+            overflow-x: hidden; /* Impedisce lo scorrimento laterale */
         }
 
         .scroll-container::-webkit-scrollbar {
@@ -58,11 +58,10 @@
             width: 100%;
             height: auto;
             display: block;
-            pointer-events: none; /* Disabilita clic */
-            user-select: none; /* Impedisce la selezione */
-            -webkit-user-drag: none; /* Impedisce il trascinamento su WebKit */
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-drag: none;
             position: relative;
-            object-fit: cover; /* Adatta l'immagine al contenitore */
         }
 
         /* Area cliccabile */
@@ -70,16 +69,14 @@
             position: absolute;
             top: 1413px;
             left: 250px;
-            width: 304px; /* 554 - 250 */
-            height: 102px; /* 1515 - 1413 */
+            width: 304px;
+            height: 102px;
             pointer-events: auto;
         }
 
         /* Stelle animate */
         .star {
             position: absolute;
-            width: 10px;
-            height: 10px;
             background-image: url('png-clipart-small-gold-star-creative-christmas-christmas-thumbnail.png');
             background-size: cover;
             opacity: 0.8;
@@ -92,7 +89,7 @@
                 opacity: 0.8;
             }
             50% {
-                transform: scale(1.5);
+                transform: scale(1.2);
                 opacity: 1;
             }
         }
@@ -129,8 +126,8 @@
             }
         }
 
-        /* Media query per smartphone */
         @media (max-width: 600px) {
+            /* Adattamenti per schermi piccoli */
             .scroll-container {
                 height: 80vh;
                 max-width: 100%;
@@ -141,22 +138,23 @@
             }
 
             .star {
-                width: 6px;
-                height: 6px;
+                width: 8px;
+                height: 8px;
             }
 
-            /* Impedisce la selezione dell'immagine di sfondo su smartphone */
-            .background-image {
-                pointer-events: none; 
-                object-fit: cover; /* Adatta l'immagine al contenitore */
-            }
-
-            /* Rende l'area cliccabile proporzionale su schermi piccoli */
+            /* Correzioni dell'area cliccabile su schermi piccoli */
             .clickable-area {
-                top: calc(1413px * 0.8); /* Ridimensionamento proporzionale */
-                left: calc(250px * 0.8); /* Ridimensionamento proporzionale */
-                width: calc(304px * 0.8); /* Ridimensionamento proporzionale */
-                height: calc(102px * 0.8); /* Ridimensionamento proporzionale */
+                top: 65%; /* Percentuale per adattare l'area cliccabile alla dimensione */
+                left: 10%;
+                width: 80%;
+                height: 8%;
+            }
+
+            /* Evitare scorrimenti fuori dai limiti */
+            .background-image {
+                width: 100%;
+                height: auto;
+                object-fit: cover; /* Mantiene la proporzione senza tagli */
             }
         }
     </style>
@@ -178,7 +176,7 @@
     <script>
         // Creazione delle stelle animate con movimento
         const starsContainer = document.getElementById('stars-container');
-        const starCount = 100; // Numero aumentato di stelle
+        const starCount = 50; // Numero di stelle
         const maxWidth = window.innerWidth;
         const maxHeight = window.innerHeight;
 
@@ -187,8 +185,8 @@
             star.classList.add('star');
             star.style.left = Math.random() * maxWidth + 'px';
             star.style.top = Math.random() * maxHeight + 'px';
-            star.style.width = Math.random() * 6 + 8 + 'px'; // Varietà nelle dimensioni delle stelle
-            star.style.height = star.style.width; // Altezza uguale alla larghezza per rendere la stella rotonda
+            star.style.width = (Math.random() * 5 + 10) + 'px'; // Varie dimensioni per le stelle
+            star.style.height = star.style.width;
             star.style.animationDelay = Math.random() * 4 + 's';
             starsContainer.appendChild(star);
         }
