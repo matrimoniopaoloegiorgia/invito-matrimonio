@@ -57,20 +57,22 @@
             width: 100%;
             height: auto;
             display: block;
-            user-select: none; /* Impedisce la selezione */
+            user-select: none;
             -webkit-user-drag: none; /* Impedisce il trascinamento su WebKit */
             pointer-events: none; /* Rende l'immagine completamente non interattiva */
+            -webkit-touch-callout: none; /* Impedisce l'evidenziazione su iOS */
         }
 
         /* Area cliccabile */
         .clickable-area {
             position: absolute;
-            top: 1413px;
+            top: 1413px; /* Regola in base all'immagine */
             left: 250px;
             width: 304px; /* 554 - 250 */
             height: 102px; /* 1515 - 1413 */
             z-index: 10;
-            background: rgba(0, 0, 0, 0); /* Area invisibile */
+            background: rgba(0, 0, 0, 0); /* Area invisibile ma cliccabile */
+            cursor: pointer;
         }
 
         /* Stelle animate */
@@ -100,7 +102,7 @@
                 transform: translate(0, 0);
             }
             100% {
-                transform: translate(100px, 100px);
+                transform: translate(50px, 50px);
             }
         }
 
@@ -152,7 +154,8 @@
     <div class="scroll-container">
         <img class="background-image" src="sfondo.jpg" alt="Sfondo non selezionabile">
         <!-- Area cliccabile -->
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdxoRrQzizgeBPutK-N7_0FzqsJTRkY1Vb6DmRbMJXcde_aHQ/viewform?vc=0&c=0&w=1&flr=0" target="_blank" class="clickable-area"></a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdxoRrQzizgeBPutK-N7_0FzqsJTRkY1Vb6DmRbMJXcde_aHQ/viewform?vc=0&c=0&w=1&flr=0" 
+           target="_blank" class="clickable-area"></a>
     </div>
 
     <!-- Indicatore di scorrimento -->
@@ -179,12 +182,6 @@
         const scrollIndicator = document.getElementById('scroll-indicator');
 
         scrollContainer.addEventListener('scroll', () => {
-            const isAtBottom = scrollContainer.scrollTop + scrollContainer.clientHeight >= scrollContainer.scrollHeight - 1;
-            scrollIndicator.style.display = isAtBottom ? 'none' : 'block';
-        });
-
-        // Aggiungi un gestore per l'evento touch su dispositivi mobili
-        scrollContainer.addEventListener('touchmove', () => {
             const isAtBottom = scrollContainer.scrollTop + scrollContainer.clientHeight >= scrollContainer.scrollHeight - 1;
             scrollIndicator.style.display = isAtBottom ? 'none' : 'block';
         });
