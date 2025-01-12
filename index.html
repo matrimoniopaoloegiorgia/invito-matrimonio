@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, initial-scale=1, maximum-scale=5.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matrimonio Paolo e Giorgia</title>
     <style>
         /* Reset base */
@@ -12,7 +12,6 @@
             box-sizing: border-box;
         }
 
-        /* Corpo della pagina */
         body {
             background-color: #f2f2f2;
             display: flex;
@@ -25,7 +24,6 @@
             overflow: hidden;
         }
 
-        /* Effetto fade-in */
         @keyframes fadeIn {
             0% {
                 opacity: 0;
@@ -35,7 +33,6 @@
             }
         }
 
-        /* Contenitore principale scrollabile */
         .scroll-container {
             width: 100%;
             max-width: 800px;
@@ -53,7 +50,6 @@
             display: none;
         }
 
-        /* Immagine di sfondo */
         .background-image {
             width: 100%;
             height: auto;
@@ -62,10 +58,9 @@
             user-select: none;
             -webkit-user-drag: none;
             position: relative;
-            min-width: 100%; /* Impedisce che l'immagine diventi più piccola del contenitore */
+            min-width: 100%; /* Blocca il rimpicciolimento */
         }
 
-        /* Area cliccabile */
         .clickable-area {
             position: absolute;
             top: 1413px;
@@ -75,7 +70,6 @@
             pointer-events: auto;
         }
 
-        /* Stelle animate */
         .star {
             position: absolute;
             background-image: url('png-clipart-small-gold-star-creative-christmas-christmas-thumbnail.png');
@@ -104,7 +98,6 @@
             }
         }
 
-        /* Indicatore di scorrimento */
         .scroll-indicator {
             position: fixed;
             bottom: 20px;
@@ -128,7 +121,6 @@
         }
 
         @media (max-width: 600px) {
-            /* Adattamenti per schermi piccoli */
             .scroll-container {
                 height: 80vh;
                 max-width: 100%;
@@ -143,19 +135,17 @@
                 height: 8px;
             }
 
-            /* Correzioni dell'area cliccabile su schermi piccoli */
             .clickable-area {
-                top: calc(60% + 30vh); /* Adatta dinamicamente in base all'altezza dello schermo */
+                top: calc(60% + 30vh);
                 left: 10%;
                 width: 80%;
                 height: 8%;
             }
 
-            /* Evitare scorrimenti fuori dai limiti */
             .background-image {
                 width: 100%;
                 height: auto;
-                object-fit: cover; /* Mantiene la proporzione senza tagli */
+                object-fit: cover;
             }
         }
     </style>
@@ -175,9 +165,8 @@
     <div class="scroll-indicator" id="scroll-indicator">↓</div>
 
     <script>
-        // Creazione delle stelle animate con movimento
         const starsContainer = document.getElementById('stars-container');
-        const starCount = 75; // Numero di stelle aumentato
+        const starCount = 75;
         const maxWidth = window.innerWidth;
         const maxHeight = window.innerHeight;
 
@@ -186,23 +175,16 @@
             star.classList.add('star');
             star.style.left = Math.random() * maxWidth + 'px';
             star.style.top = Math.random() * maxHeight + 'px';
-            star.style.width = (Math.random() * 5 + 5) + 'px'; // Maggiore variabilità per le dimensioni
+            star.style.width = (Math.random() * 5 + 5) + 'px';
             star.style.height = star.style.width;
             star.style.animationDelay = Math.random() * 4 + 's';
             starsContainer.appendChild(star);
         }
 
-        // Funzione per nascondere l'indicatore di scorrimento
         const scrollContainer = document.querySelector('.scroll-container');
         const scrollIndicator = document.getElementById('scroll-indicator');
 
         scrollContainer.addEventListener('scroll', () => {
-            const isAtBottom = scrollContainer.scrollTop + scrollContainer.clientHeight >= scrollContainer.scrollHeight - 1;
-            scrollIndicator.style.display = isAtBottom ? 'none' : 'block';
-        });
-
-        // Aggiungi un gestore per l'evento touch su dispositivi mobili
-        scrollContainer.addEventListener('touchmove', () => {
             const isAtBottom = scrollContainer.scrollTop + scrollContainer.clientHeight >= scrollContainer.scrollHeight - 1;
             scrollIndicator.style.display = isAtBottom ? 'none' : 'block';
         });
