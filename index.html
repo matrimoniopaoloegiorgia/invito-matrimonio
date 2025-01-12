@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <title>Matrimonio Paolo e Giorgia</title>
     <style>
         /* Reset base */
@@ -150,11 +150,11 @@
                 height: 8%;
             }
 
-            /* Mantiene proporzioni immagine di sfondo */
+            /* Evitare scorrimenti fuori dai limiti */
             .background-image {
                 width: 100%;
                 height: auto;
-                object-fit: contain; /* Mantiene il rapporto di aspetto */
+                object-fit: cover; /* Mantiene la proporzione senza tagli */
             }
         }
     </style>
