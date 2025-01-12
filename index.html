@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1">
     <title>Matrimonio Paolo e Giorgia</title>
     <style>
         /* Reset base */
@@ -43,7 +43,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             border: 1px solid #ccc;
-            overflow-x: hidden; /* Impedisce lo scorrimento laterale */
+            overflow-x: hidden;
         }
 
         .scroll-container::-webkit-scrollbar {
@@ -146,6 +146,7 @@
                 width: 100%;
                 height: auto;
                 object-fit: cover;
+                min-width: 100%; /* Blocca il rimpicciolimento */
             }
         }
     </style>
