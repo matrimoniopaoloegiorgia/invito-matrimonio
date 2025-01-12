@@ -150,11 +150,11 @@
                 height: 8%;
             }
 
-            /* Evitare scorrimenti fuori dai limiti */
+            /* Mantiene proporzioni immagine di sfondo */
             .background-image {
                 width: 100%;
                 height: auto;
-                object-fit: cover; /* Mantiene la proporzione senza tagli */
+                object-fit: contain; /* Mantiene il rapporto di aspetto */
             }
         }
     </style>
